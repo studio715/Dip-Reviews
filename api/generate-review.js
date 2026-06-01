@@ -16,7 +16,7 @@ export default async function handler(req, res) {
 
   const persona = categoryPrompts[category] || categoryPrompts.general;
 
-  const prompt = `Write a short, genuine Google review (2–3 sentences, max 60 words) 
+  const prompt = `Write a short, genuine Google review (2–3 sentences, max 30 words) 
 from the perspective of ${persona}. Keep it natural, specific, and human. 
 Vary the tone and wording every time. 
 Do NOT include quotation marks, star ratings, or labels. Just the review text.`;
