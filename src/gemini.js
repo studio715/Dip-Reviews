@@ -5,8 +5,9 @@ export async function generateReview(category) {
       body: JSON.stringify({ category }),
     });
   
-    if (!res.ok) throw new Error("Failed to generate review");
-  
     const data = await res.json();
+    console.log("API Response:", data); // ← add this
+  
+    if (!res.ok) throw new Error("Failed to generate review");
     return data.review;
   }

@@ -34,6 +34,8 @@ export default async function handler(req, res) {
       );
   
       const data = await geminiRes.json();
+      console.log("Full Gemini response:", JSON.stringify(data));
+  
       const candidate = data.candidates && data.candidates[0];
       const part = candidate && candidate.content && candidate.content.parts && candidate.content.parts[0];
       const text = part && part.text ? part.text.trim() : null;
@@ -43,6 +45,7 @@ export default async function handler(req, res) {
       return res.status(200).json({ review: text });
   
     } catch (error) {
+      console.log("Catch error:", error);
       return res.status(500).json({ error: "Failed to generate review" });
     }
   }
