@@ -257,22 +257,6 @@ export default function Reviews() {
           {reviewText.length} characters
         </div>
 
-        <div className="review-tips">
-
-          <span>
-            ✓ Edit any sample review
-          </span>
-
-          <span>
-            ✓ Write your own experience
-          </span>
-
-          <span>
-            ✓ Honest feedback helps others
-          </span>
-
-        </div>
-
         <button
           className="submit-btn"
           onClick={copyReview}

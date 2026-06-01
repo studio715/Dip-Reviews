@@ -39,8 +39,7 @@
   
   .reviews-header {
     text-align: center;
-  
-    margin-bottom: 30px;
+    margin-bottom: 16px;
   }
   
   .reviews-badge {
@@ -76,7 +75,7 @@
         3.2rem
       );
   
-    margin-bottom: 12px;
+    margin-bottom: 8px;
   }
   
   .reviews-header p {
@@ -84,7 +83,7 @@
   
     margin: auto;
   
-    line-height: 1.8;
+    line-height: 1.5;
   
     color: #7a6258;
   }
@@ -235,9 +234,8 @@
   
   textarea {
     width: 100%;
-  
-    min-height: 220px;
-  
+    max-width: 100%;
+    min-height: 120px;
     padding: 22px;
   
     border:
@@ -476,5 +474,66 @@
     .review-nav-btn {
       width: 40px;
       height: 40px;
+    }
+  }
+  @media (max-width: 768px) {
+
+    .reviews-page {
+      padding: 10px;
+      min-height: auto;
+    }
+  
+    .reviews-card {
+      padding: 16px;
+    }
+  
+    .reviews-header {
+      margin-bottom: 12px;
+    }
+  
+    .reviews-header h1 {
+      font-size: 1.8rem;
+      margin-bottom: 6px;
+    }
+  
+    .reviews-header p {
+      font-size: .85rem;
+      margin-bottom: 0;
+    }
+  
+    .review-categories {
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+  
+    .review-categories button {
+      padding: 10px;
+      min-height: 42px;
+      font-size: .8rem;
+    }
+  
+    .review-navigation {
+      margin-bottom: 12px;
+    }
+  
+    .editor-header {
+      margin-bottom: 8px;
+    }
+  
+    textarea {
+      min-height: 120px;
+      max-height: 160px;
+  
+      padding: 14px;
+  
+      font-size: .95rem;
+  
+      box-sizing: border-box;
+    }
+  
+    .submit-btn {
+      margin-top: 12px;
+  
+      padding: 14px;
     }
   }
