@@ -237,22 +237,13 @@
     max-width: 100%;
     min-height: 120px;
     padding: 22px;
-  
-    border:
-      1px solid #c8902a;
-  
+    border:1px solid #c8902a; 
     border-radius: 18px;
-  
     resize: none;
-  
     font-size: 1rem;
-  
     line-height: 1.8;
-  
     color: #4a3b34;
-  
     background: white;
-  
     transition: .2s;
   }
   
@@ -269,7 +260,7 @@
   /* Scrollbar */
   
   textarea::-webkit-scrollbar {
-    width: 6px;
+    width: 4px;
   }
   
   textarea::-webkit-scrollbar-track {
@@ -526,7 +517,7 @@
   
       padding: 14px;
   
-      font-size: .95rem;
+      font-size: 0.7rem;
   
       box-sizing: border-box;
     }
@@ -536,4 +527,17 @@
   
       padding: 14px;
     }
+  }
+  .category-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .review-categories button svg {
+    flex-shrink: 0;
+  }
+  
+  .review-categories button.active svg {
+    color: white;
   }
