@@ -117,117 +117,56 @@ export default function Reviews() {
         },
       ];
 
-  const getRandomReview = (category) => {
-    const reviews = reviewTemplates[category];
-
-    return reviews[
-      Math.floor(Math.random() * reviews.length)
-    ];
-  };
-
-  const [category, setCategory] =
-    useState("residential");
-
-  const [reviewText, setReviewText] =
-    useState(
-      getRandomReview("residential")
-    );
-
-  const [copied, setCopied] =
-    useState(false);
-
-  const changeCategory = (newCategory) => {
-
-    setCategory(newCategory);
-
-    setReviewText(
-      getRandomReview(newCategory)
-    );
-
-    setCopied(false);
-  };
-
-  const nextReview = () => {
-
-    const reviews =
-      reviewTemplates[category];
-
-    const currentIndex =
-      reviews.indexOf(reviewText);
-
-    const nextIndex =
-      currentIndex === reviews.length - 1
-        ? 0
-        : currentIndex + 1;
-
-    setReviewText(
-      reviews[nextIndex]
-    );
-
-    setCopied(false);
-  };
-
-  const prevReview = () => {
-
-    const reviews =
-      reviewTemplates[category];
-
-    const currentIndex =
-      reviews.indexOf(reviewText);
-
-    const prevIndex =
-      currentIndex <= 0
-        ? reviews.length - 1
-        : currentIndex - 1;
-
-    setReviewText(
-      reviews[prevIndex]
-    );
-
-    setCopied(false);
-  };
-
-  const handlers = useSwipeable({
-    onSwipedLeft: nextReview,
-    onSwipedRight: prevReview,
-    preventScrollOnSwipe: true,
-    trackMouse: true,
-  });
-
-  const copyReview = async () => {
-
-    if (!reviewText.trim()) {
-      alert("Please write a review.");
-      return;
-    }
-
-    try {
-
-      await navigator.clipboard.writeText(
-        reviewText
-      );
-
-      setCopied(true);
-
-      setTimeout(() => {
-        window.location.href =
-          GOOGLE_REVIEW_LINK;
-      }, 400);
-
-    } catch (error) {
-
-      alert(
-        "Unable to copy review."
-      );
-    }
-  };
-
-  const clearReview = () => {
-
-    setReviewText("");
-
-    setCopied(false);
-  };
+      const [category, setCategory] = useState("residential");
+      const [reviewText, setReviewText] = useState("");
+      const [copied, setCopied] = useState(false);
+      const [loading, setLoading] = useState(false);
+    
+      const fetchNewReview = useCallback(async (cat) => {
+        setLoading(true);
+        setReviewText("");
+        try {
+          const text = await generateReview(cat);
+          setReviewText(text);
+        } catch {
+          setReviewText("Unable to generate review. Please write your own.");
+        } finally {
+          setLoading(false);
+        }
+      }, []);
+    
+      useEffect(() => {
+        fetchNewReview("residential");
+      }, [fetchNewReview]);
+    
+      const changeCategory = (newCategory) => {
+        setCategory(newCategory);
+        setCopied(false);
+        fetchNewReview(newCategory);
+      };
+    
+      const nextReview = () => { setCopied(false); fetchNewReview(category); };
+      const prevReview = () => { setCopied(false); fetchNewReview(category); };
+    
+      const handlers = useSwipeable({
+        onSwipedLeft: nextReview,
+        onSwipedRight: prevReview,
+        preventScrollOnSwipe: true,
+        trackMouse: true,
+      });
+    
+      const copyReview = async () => {
+        if (!reviewText.trim()) { alert("Please write a review."); return; }
+        try {
+          await navigator.clipboard.writeText(reviewText);
+          setCopied(true);
+          setTimeout(() => { window.location.href = GOOGLE_REVIEW_LINK; }, 400);
+        } catch {
+          alert("Unable to copy review.");
+        }
+      };
+    
+      const clearReview = () => { setReviewText(""); setCopied(false); };
 
   return (
     <section className="reviews-page">
@@ -317,15 +256,12 @@ export default function Reviews() {
 
         <div {...handlers}>
 
-          <textarea
-            value={reviewText}
-            onChange={(e) =>
-              setReviewText(
-                e.target.value
-              )
-            }
-            placeholder="Write your review here..."
-          />
+        <textarea
+        value={reviewText}
+        onChange={(e) => setReviewText(e.target.value)}
+        placeholder={loading ? "✨ Generating your review..." : "Write your review here..."}
+        disabled={loading}
+        />
 
         </div>
 
@@ -334,10 +270,11 @@ export default function Reviews() {
         </div>
 
         <button
-          className="submit-btn"
-          onClick={copyReview}
+        className="submit-btn"
+        onClick={copyReview}
+        disabled={loading}
         >
-          Copy Review & Open Google
+        {loading ? "Generating..." : "Copy Review & Open Google"}
         </button>
 
         {copied && (
