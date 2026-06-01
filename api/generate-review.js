@@ -23,15 +23,28 @@ export default async function handler(req, res) {
   
     try {
       const geminiRes = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
+        "https://api.anthropic.com/v1/messages",
         {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            "x-api-key": process.env.GEMINI_API_KEY,
+            "anthropic-version": "2023-06-01",
+          },
           body: JSON.stringify({
-            contents: [{ parts: [{ text: prompt }] }],
+            model: "claude-haiku-4-5-20251001",
+            max_tokens: 150,
+            messages: [{ role: "user", content: prompt }],
           }),
         }
       );
+      
+      const data = await res.json();
+      console.log("Full response:", JSON.stringify(data));
+      
+      const text = data.content && data.content[0] && data.content[0].text
+        ? data.content[0].text.trim()
+        : null;
   
       const data = await geminiRes.json();
       console.log("Full Gemini response:", JSON.stringify(data));
