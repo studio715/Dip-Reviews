@@ -1,8 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useSwipeable } from "react-swipeable";
-import { reviewTemplates } from "./db";
+import { generateReview } from "./gemini";
 import "./Reviews.css";
-
 export default function Reviews() {
 
   const GOOGLE_REVIEW_LINK =
