@@ -16,7 +16,7 @@ export default async function handler(req, res) {
 
   const persona = categoryPrompts[category] || categoryPrompts.general;
 
-const prompt = `Write a single short Google review in ONE paragraph, maximum 2-3 sentences and under 40 words.
+const prompt = `Write a single short Google review in ONE paragraph, maximum 2-3 sentences and under 20 words.
 from the perspective of ${persona}.
 The company is Dip Projects — a professional Project Management Consultancy (PMC) firm specializing in civil construction projects including residential buildings, commercial complexes, and industrial infrastructure in India.
 They provide services like project planning, site supervision, contractor coordination, quality control, and timely delivery.
