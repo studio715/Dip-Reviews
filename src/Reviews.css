@@ -234,7 +234,7 @@
   
   textarea {
     width: 100%;
-    max-width: 90%;
+    max-width: 100%;
     min-height: 120px;
     padding: 22px;
     border:1px solid #c8902a; 
