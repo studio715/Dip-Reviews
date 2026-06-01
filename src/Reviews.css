@@ -37,6 +37,7 @@
      CARD
      ================================================================ */
   .reviews-card {
+     margin-top:-40px;
     width: 100%;
     max-width: 820px;
     position: relative;
